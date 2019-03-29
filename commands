@@ -8,6 +8,10 @@ set -o pipefail
 # Docs: https://developer.github.com/actions/creating-github-actions/accessing-the-runtime-environment/#exit-codes-and-statuses
 END_IN_NEUTRAL=${END_IN_NEUTRAL:-78}
 
+ls
+pwd
+kubectl version
+
 main(){
 	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
 	merged=$(jq --raw-output .pull_request.merged "$GITHUB_EVENT_PATH")

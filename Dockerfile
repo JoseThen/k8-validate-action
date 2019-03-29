@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM lachlanevenson/k8s-kubectl:latest
 
 LABEL "com.github.actions.name"="Kube Yaml Validation"
 

@@ -26,7 +26,7 @@ main(){
         echo "Running Tests"
         exit 0
     fi
-
+    echo "A PR was not updated or opened, setting this build as Neutral!"
     exit $END_IN_NEUTRAL
 }
 

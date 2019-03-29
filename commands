@@ -4,8 +4,9 @@ set -o pipefail
 
 # Github Actions will mark a check as "neutral" (neither failed/succeeded) when you exit with code 78
 # But this will terminate any other Actions running in parallel in the same workflow.
-# Configuring this Environment Variable `NO_BRANCH_DELETED_EXIT_CODE=0` if no branch was deleted will let your workflow continue.
+# Configuring this Environment Variable `END_IN_NEUTRAL=0` if no branch was deleted will let your workflow continue.
 # Docs: https://developer.github.com/actions/creating-github-actions/accessing-the-runtime-environment/#exit-codes-and-statuses
+END_IN_NEUTRAL=${END_IN_NEUTRAL:-78}
 
 main(){
 	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
@@ -23,8 +24,10 @@ main(){
 
     if [ "$action" = "open" ] || [ "$action" = "updated" ]; then
         echo "Running Tests"
+        exit 0
+    fi
 
-
+    exit $END_IN_NEUTRAL
 }
 
 main "$@"

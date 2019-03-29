@@ -25,7 +25,7 @@ main(){
     echo "$Owner: owner"
     echo "$Repo: repo"
 
-    if [ "$action" = "open" ] || [ "$action" = "updated" ]; then
+    if [ "$action" = "open" ] || [ "$action" = "synchronize" ]; then
         echo "Running Tests"
         kubectl version
         exit 0

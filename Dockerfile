@@ -16,6 +16,8 @@ RUN	apk add --no-cache \
 
 COPY commands /usr/bin/gitCheck
 
+# RUN chmod +x .sh /usr/bin/gitCheck
+
 WORKDIR /validator
 
 COPY . /validator

@@ -2,20 +2,10 @@
 set -e
 set -o pipefail
 
-if [[ ! -z "$TOKEN" ]]; then
-	GITHUB_TOKEN=$TOKEN
-fi
-
-if [[ -z "$GITHUB_TOKEN" ]]; then
-	echo "Set the GITHUB_TOKEN env variable."
-	exit 1
-fi
-
 # Github Actions will mark a check as "neutral" (neither failed/succeeded) when you exit with code 78
 # But this will terminate any other Actions running in parallel in the same workflow.
 # Configuring this Environment Variable `NO_BRANCH_DELETED_EXIT_CODE=0` if no branch was deleted will let your workflow continue.
 # Docs: https://developer.github.com/actions/creating-github-actions/accessing-the-runtime-environment/#exit-codes-and-statuses
-NO_BRANCH_DELETED_EXIT_CODE=${NO_BRANCH_DELETED_EXIT_CODE:-78}
 
 main(){
 	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
@@ -25,12 +15,14 @@ main(){
     repo=$(jq --raw-output .pull_request.head.repo.name "$GITHUB_EVENT_PATH")
 
     echo $GITHUB_EVENT_PATH
-    echo "$action"
-    echo "$merged"
-    echo "$ref"
-    echo "$owner"
-    echo "$repo"
-	echo "DEBUG -> action: $action merged: $merged"
+    echo "Action: $action"
+    echo "Merged: $merged"
+    echo "$Ref: ref"
+    echo "$Owner: owner"
+    echo "$Repo: repo"
+
+    if [ "$action" = "open" ] || [ "$action" = "updated" ]; then
+        echo "Running Tests"
 
 
 }

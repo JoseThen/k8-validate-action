@@ -10,7 +10,6 @@ END_IN_NEUTRAL=${END_IN_NEUTRAL:-78}
 
 ls
 pwd
-kubectl version
 
 main(){
 	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
@@ -28,6 +27,7 @@ main(){
 
     if [ "$action" = "open" ] || [ "$action" = "updated" ]; then
         echo "Running Tests"
+        kubectl version
         exit 0
     fi
     echo "A PR was not updated or opened, setting this build as Neutral!"

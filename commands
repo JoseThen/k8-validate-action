@@ -10,6 +10,8 @@ END_IN_NEUTRAL=${END_IN_NEUTRAL:-78}
 
 ls
 pwd
+git status
+git diff origin/remote/master
 kubectl version
 
 main(){
